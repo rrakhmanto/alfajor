@@ -59,6 +59,7 @@ for snapshot in all_snapshots:
     print "volIdResult=", volIdResult
     print "volIdResultNumber=", volIdResultNumber
     print "length volIdResult=", str(len(volIdResult))
+    print "length volIdResultNumber=", str(len(volIdResultNumber))
 
     if len(volIdResult) != 1:
       snapshots_no_info[snapshotId] = {"start_time" : snapshot.start_time}
