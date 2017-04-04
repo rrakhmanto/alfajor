@@ -27,6 +27,7 @@ count_snapshots = None
 f = open('/tmp/orphan_snapshot_report_' + account + '.txt','w')
 
 for v in ec2.get_conn().get_all_volumes():
+  pprint(v.__dict__)
   name = ""
   if 'Name' in v.tags:
     name = v.tags['Name']
@@ -46,12 +47,13 @@ for snapshot in all_snapshots:
   amiIdResult = reAmi.findall(snapshot.description) #find associated AMI
 
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
+  # no AMI found
+    volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
     volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
     print "volIdResult=", volIdResult
-    print "length volIdResult=" + str(len(volIdResult))
+    print "length volIdResult=", str(len(volIdResult))
 
-    #if len(volIdResult) != 1:
-    if volIdResult == "":
+    if len(volIdResult) != 1:
       snapshots_no_info[snapshotId] = {"start_time" : snapshot.start_time}
     else:
       snapshots_with_vol_info[snapshotId] = { 'vol' : volIdResult[0], 'info' : volumes[volIdResult[0]], "start_time" : snapshot.start_time}
