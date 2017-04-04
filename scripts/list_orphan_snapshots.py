@@ -18,6 +18,7 @@ reVol = re.compile('vol-[^ ]+')
 
 images = {}
 volumes = {}
+volumesList = {}
 snapshots_no_info = {}
 snapshots_no_ami = {}
 snapshots_with_ami = {}
@@ -32,6 +33,7 @@ for v in ec2.get_conn().get_all_volumes():
   if 'Name' in v.tags:
     name = v.tags['Name']
   volumes[v.id] = {'status' : v.status, 'Name' : name}
+  volumesList.append(v.id)
 
 for image in ec2.get_conn().get_all_images(owners=['self']):
   images[image.id] = { "Name" : image.name, "description" : str(image.description)}
@@ -49,7 +51,7 @@ for snapshot in all_snapshots:
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
   # no AMI found
     volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
-    volIdResultNumber = volumes.index(snapshot.volume_id)
+    volIdResultNumber = volumesList.index(snapshot.volume_id)
     print "volIdResult=", volIdResult
     print "volIdResultNumber=", volIdResultNumber
     print "length volIdResult=", str(len(volIdResult))
