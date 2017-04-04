@@ -53,15 +53,16 @@ for snapshot in all_snapshots:
     volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
     try:
       volIdResultNumber = volumesList.index(snapshot.volume_id)
+      volumeFound = True
     except:
       volIdResultNumber = ""
+      volumeFound = False
 
     print "volIdResult=", volIdResult
     print "volIdResultNumber=", volIdResultNumber
     print "length volIdResult=", str(len(volIdResult))
-    print "length volIdResultNumber=", str(len(volIdResultNumber))
 
-    if len(volIdResultNumber) != 1:
+    if not volumeFound:
       snapshots_no_info[snapshotId] = {"start_time" : snapshot.start_time}
     else:
       snapshots_with_vol_info[snapshotId] = { 'vol' : volIdResult[0], 'info' : volumes[volIdResult[0]], "start_time" : snapshot.start_time}
