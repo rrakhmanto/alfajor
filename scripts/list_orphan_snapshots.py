@@ -18,7 +18,7 @@ reVol = re.compile('vol-[^ ]+')
 
 images = {}
 volumes = {}
-volumesList = {}
+volumesList = []
 snapshots_no_info = {}
 snapshots_no_ami = {}
 snapshots_with_ami = {}
