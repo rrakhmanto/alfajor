@@ -65,7 +65,8 @@ for snapshot in all_snapshots:
     if not volumeFound:
       snapshots_no_info[snapshotId] = {"start_time" : snapshot.start_time}
     else:
-      snapshots_with_vol_info[snapshotId] = { 'vol' : volIdResult[0], 'info' : volumes[volIdResult[0]], "start_time" : snapshot.start_time}
+      snapshots_with_vol_info[snapshotId] = { 'vol' : snapshot.volume_id, 'info' : volumes[snapshot.volume_id], "start_time" : snapshot.start_time}
+
   else: #found only one associated ami
     amiId = amiIdResult[0]
     if amiId in images:
