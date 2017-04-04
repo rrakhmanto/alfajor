@@ -39,7 +39,13 @@ count_snapshots = len(all_snapshots)
 
 for snapshot in all_snapshots:
   snapshotId = snapshot.id
+  snpashotDescription = snapshot.description
+  print "snapshot id" % snapshotId
+  print "snapshot description" % snpashotDescription
+
   amiIdResult = reAmi.findall(snapshot.description)
+  print "ami id" % amiIdResult
+
   if len(amiIdResult) != 1:
     volIdResult = reVol.findall(snapshot.description)
     if len(volIdResult) != 1:
