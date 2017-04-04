@@ -49,8 +49,9 @@ for snapshot in all_snapshots:
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
   # no AMI found
     volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
-    volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
+    volIdResultNumber = volumes.index(snapshot.volume_id)
     print "volIdResult=", volIdResult
+    print "volIdResultNumber=", volIdResultNumber
     print "length volIdResult=", str(len(volIdResult))
 
     if len(volIdResult) != 1:
