@@ -38,10 +38,10 @@ for v in ec2.get_conn().get_all_volumes():
   volumesList.append(v.id)
 
 for image in ec2.get_conn().get_all_images(owners=['self']):
-  pprint(v.__dict__)
+  pprint(image.__dict__)
   images[image.id] = { "Name" : image.name, "description" : str(image.description)}
   imagesList.append(image.id)
-  
+
 
 all_snapshots = ec2.get_conn().get_all_snapshots(owner='self')
 count_snapshots = len(all_snapshots)
