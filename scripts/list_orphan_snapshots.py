@@ -46,11 +46,12 @@ for snapshot in all_snapshots:
   amiIdResult = reAmi.findall(snapshot.description) #find associated AMI
 
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
-    volIdResult = reVol.findall(snapshot.description) #find associated volumes
-    print "volIdResult=" % volIdResult
+    volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
+    print "volIdResult=" + volIdResult
     print "length volIdResult=" + str(len(volIdResult))
 
-    if len(volIdResult) != 1:
+    #if len(volIdResult) != 1:
+    if volIdResult == "":
       snapshots_no_info[snapshotId] = {"start_time" : snapshot.start_time}
     else:
       snapshots_with_vol_info[snapshotId] = { 'vol' : volIdResult[0], 'info' : volumes[volIdResult[0]], "start_time" : snapshot.start_time}
