@@ -2,6 +2,7 @@ import sys
 import re
 import boto
 import os
+from pprint import pprint
 from datetime import date
 sys.path.append("alfajor")
 from alfajor import aws_ec2
