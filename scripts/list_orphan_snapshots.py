@@ -44,6 +44,7 @@ for snapshot in all_snapshots:
   snpashotDescription = snapshot.description
 
   amiIdResult = reAmi.findall(snapshot.description)
+  pprint(amiIdResult.__dict__)
 
   if len(amiIdResult) != 1:
     volIdResult = reVol.findall(snapshot.description)
