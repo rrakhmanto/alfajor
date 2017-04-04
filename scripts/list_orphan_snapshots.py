@@ -38,13 +38,11 @@ all_snapshots = ec2.get_conn().get_all_snapshots(owner='self')
 count_snapshots = len(all_snapshots)
 
 for snapshot in all_snapshots:
+  pprint(snapshot.__dict__)
   snapshotId = snapshot.id
   snpashotDescription = snapshot.description
-  print "snapshot id" % snapshotId
-  print "snapshot description" % snpashotDescription
 
   amiIdResult = reAmi.findall(snapshot.description)
-  print "ami id" % amiIdResult
 
   if len(amiIdResult) != 1:
     volIdResult = reVol.findall(snapshot.description)
