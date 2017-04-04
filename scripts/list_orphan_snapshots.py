@@ -61,7 +61,7 @@ for snapshot in all_snapshots:
     print "length volIdResult=", str(len(volIdResult))
     print "length volIdResultNumber=", str(len(volIdResultNumber))
 
-    if len(volIdResult) != 1:
+    if len(volIdResultNumber) != 1:
       snapshots_no_info[snapshotId] = {"start_time" : snapshot.start_time}
     else:
       snapshots_with_vol_info[snapshotId] = { 'vol' : volIdResult[0], 'info' : volumes[volIdResult[0]], "start_time" : snapshot.start_time}
