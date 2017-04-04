@@ -53,9 +53,9 @@ for snapshot in all_snapshots:
     volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
     try:
       volIdResultNumber = volumesList.index(snapshot.volume_id)
-    else:
+    except:
       volIdResultNumber = ""
-    
+
     print "volIdResult=", volIdResult
     print "volIdResultNumber=", volIdResultNumber
     print "length volIdResult=", str(len(volIdResult))
