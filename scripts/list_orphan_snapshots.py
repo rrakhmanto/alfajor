@@ -100,7 +100,7 @@ print("Total snapshots " + str(count_snapshots) + "\n")
 print("Total snapshots_no_info " + str(len(snapshots_no_info)) + "\n")
 for snapshotInfo in snapshots_no_info:
     for snapshot in all_snapshots:
-        if snapshotInfo = snapshot.id:
+        if snapshotInfo == snapshot.id:
             print "snapshot ", snapshot.id, "created date " snapshot.start_time
 print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
 print("Total snapshosts_with_ami (ami exists) " + str(len(snapshots_with_ami)) + "\n")
