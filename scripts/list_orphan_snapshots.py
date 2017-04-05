@@ -45,8 +45,9 @@ for image in ec2.get_conn().get_all_images(owners=['self']):
 all_snapshots = ec2.get_conn().get_all_snapshots(owner='self')
 count_snapshots = len(all_snapshots)
 
+#check all the snapshots
 for snapshot in all_snapshots:
-  #pprint(snapshot.__dict__)
+  pprint(snapshot.__dict__)
   snapshotId = snapshot.id
   snpashotDescription = snapshot.description
 
@@ -98,7 +99,8 @@ print("Total amis " + str(len(images)) + "\n")
 print("Total snapshots " + str(count_snapshots) + "\n")
 print("Total snapshots_no_info " + str(len(snapshots_no_info)) + "\n")
 for snapshotInfo in snapshots_no_info:
-    print snapshotInfo
+    print snapshotInfo(0)
+    print snapshotInfo(1)
 print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
 print("Total snapshosts_with_ami (ami exists) " + str(len(snapshots_with_ami)) + "\n")
 print("Total snapshosts_with_vol " + str(len(snapshots_with_vol_info)) + "\n")
