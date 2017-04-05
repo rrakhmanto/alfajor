@@ -30,7 +30,7 @@ count_snapshots = None
 f = open('/tmp/orphan_snapshot_report_' + account + '.txt','w')
 
 for v in ec2.get_conn().get_all_volumes():
-  pprint(v.__dict__)
+  #pprint(v.__dict__)
   name = ""
   if 'Name' in v.tags:
     name = v.tags['Name']
@@ -38,12 +38,9 @@ for v in ec2.get_conn().get_all_volumes():
   volumesList.append(v.id)
 
 for image in ec2.get_conn().get_all_images(owners=['self']):
-  pprint(image.__dict__)
+  #pprint(image.__dict__)
   images[image.id] = { "Name" : image.name, "description" : str(image.description)}
   imagesList.append(image.id)
-  # for device in image.block_device_mapping:
-  #     deviceObject = device[device]
-  #     print deviceObject
 
 all_snapshots = ec2.get_conn().get_all_snapshots(owner='self')
 count_snapshots = len(all_snapshots)
@@ -62,12 +59,16 @@ for snapshot in all_snapshots:
     amiIdResult = ""
   print "amiIdResult", amiIdResult
 
-  #check if the ami ID exist
-  imageObject = ec2.get_conn().get_image(amiIdResult)
-  pprint(imageObject.__dict__)
+  #check if the ami ID really exist
+  try:
+      imageObject = ec2.get_conn().get_image(amiIdResult)
+      pprint(imageObject.__dict__)
+      amiFound = True
+  except:
+      #unable to find the image
+      amiFound = False
 
-  
-  if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
+  if not amiFound: #check if more than one associated AMI (impossible) or no associated at all.
   # no AMI found
     volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
     try:
@@ -86,8 +87,8 @@ for snapshot in all_snapshots:
     else:
       snapshots_with_vol_info[snapshotId] = { 'vol' : snapshot.volume_id, 'info' : volumes[snapshot.volume_id], "start_time" : snapshot.start_time}
 
-  else: #found only one associated ami
-    amiId = amiIdResult[0]
+  else:
+    amiId = amiIdResult
     if amiId in images:
       snapshots_with_ami[snapshotId] = { 'ami' : amiId, 'info' : images[amiId], "start_time" : snapshot.start_time}
     else:
