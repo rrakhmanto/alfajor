@@ -42,7 +42,8 @@ for image in ec2.get_conn().get_all_images(owners=['self']):
   images[image.id] = { "Name" : image.name, "description" : str(image.description)}
   imagesList.append(image.id)
   for device in image.block_device_mapping:
-      print device
+      deviceObject = device[device]
+      print deviceObject
 
 all_snapshots = ec2.get_conn().get_all_snapshots(owner='self')
 count_snapshots = len(all_snapshots)
