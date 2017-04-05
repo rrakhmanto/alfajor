@@ -41,9 +41,9 @@ for image in ec2.get_conn().get_all_images(owners=['self']):
   pprint(image.__dict__)
   images[image.id] = { "Name" : image.name, "description" : str(image.description)}
   imagesList.append(image.id)
-  for device in image.block_device_mapping:
-      deviceObject = device[device]
-      print deviceObject
+  # for device in image.block_device_mapping:
+  #     deviceObject = device[device]
+  #     print deviceObject
 
 all_snapshots = ec2.get_conn().get_all_snapshots(owner='self')
 count_snapshots = len(all_snapshots)
@@ -60,8 +60,8 @@ for snapshot in all_snapshots:
   except:
     amiIdResultNumber = ""
     amiFound = False
-
-
+  amiIdResult = re.search(r'.* for (.*) from .*', i.description, re.M|re.snapshot)
+  print amiIdResult
 
 
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
