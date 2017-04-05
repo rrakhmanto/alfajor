@@ -60,7 +60,7 @@ for snapshot in all_snapshots:
   except:
     amiIdResultNumber = ""
     amiFound = False
-  amiIdResult = re.search(r'.* for (.*) from .*', i.description, re.M|re.snapshot)
+  amiIdResult = re.search(r'.* for (.*) from .*', snapshot.description, re.M|re.I)
   print amiIdResult
 
 
