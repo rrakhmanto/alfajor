@@ -109,7 +109,7 @@ for snapshotInfo in snapshots_no_info:
             	)
                 if start_time < delete_time:
                     print "snapshot {snapshotid} created on {snapshotdate} , to delete".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
-                else
+                else:
                     print "snapshot {snapshotid} created on {snapshotdate} , to keep".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
 
 print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
