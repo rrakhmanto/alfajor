@@ -62,7 +62,7 @@ for snapshot in all_snapshots:
   #check if the ami ID really exist
   try:
       imageObject = ec2.get_conn().get_image(amiIdResult)
-      pprint(imageObject.__dict__)
+      #pprint(imageObject.__dict__)
       amiFound = True
   except:
       #unable to find the image
