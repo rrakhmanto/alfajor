@@ -46,7 +46,7 @@ all_snapshots = ec2.get_conn().get_all_snapshots(owner='self')
 count_snapshots = len(all_snapshots)
 
 for snapshot in all_snapshots:
-  pprint(snapshot.__dict__)
+  #pprint(snapshot.__dict__)
   snapshotId = snapshot.id
   snpashotDescription = snapshot.description
 
@@ -78,9 +78,9 @@ for snapshot in all_snapshots:
       volIdResultNumber = ""
       volumeFound = False
 
-    print "volIdResult=", volIdResult
-    print "volIdResultNumber=", volIdResultNumber
-    print "length volIdResult=", str(len(volIdResult))
+    #print "volIdResult=", volIdResult
+    #print "volIdResultNumber=", volIdResultNumber
+    #print "length volIdResult=", str(len(volIdResult))
 
     if not volumeFound:
       snapshots_no_info[snapshotId] = {"start_time" : snapshot.start_time}
@@ -97,7 +97,8 @@ for snapshot in all_snapshots:
 print("Total amis " + str(len(images)) + "\n")
 print("Total snapshots " + str(count_snapshots) + "\n")
 print("Total snapshots_no_info " + str(len(snapshots_no_info)) + "\n")
-print_results(snapshots_no_info)
+for snapshotInfo in snapshots_no_info:
+    print snapshotInfo
 print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
 print("Total snapshosts_with_ami (ami exists) " + str(len(snapshots_with_ami)) + "\n")
 print("Total snapshosts_with_vol " + str(len(snapshots_with_vol_info)) + "\n")
