@@ -54,19 +54,12 @@ for snapshot in all_snapshots:
   snpashotDescription = snapshot.description
 
   #amiIdResult = reAmi.findall(snapshot.description)
-  try:
-    amiIdResultNumber = imagesList.index(snapshot.volume_id)
-    amiFound = True
-  except:
-    amiIdResultNumber = ""
-    amiFound = False
-  amiIdResult = re.search(r'.* for (.*) from .*', snapshot.description, re.M|re.I)
-  if amiIdResult:
-    print amiIdResult.group(0)
-    print amiIdResult.group(1)
-    pprint (vars(amiIdResult))
-
-
+  amiSearchResult = re.search(r'.* for (.*) from .*', snapshot.description, re.M|re.I)
+  if amiSearchResult:
+    amiIdResult = amiSearchResult.group(1)
+  else:
+    amiIdResult = ""
+  print "amiIdResult", amiIdResult
 
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
   # no AMI found
