@@ -99,7 +99,10 @@ print("Total amis " + str(len(images)) + "\n")
 print("Total snapshots " + str(count_snapshots) + "\n")
 print("Total snapshots_no_info " + str(len(snapshots_no_info)) + "\n")
 for snapshotInfo in snapshots_no_info:
-    print_results(snapshotInfo)
+    print snapshotInfo
+    for key,value in snapshotInfo.items():
+        print key
+        print value
 print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
 print("Total snapshosts_with_ami (ami exists) " + str(len(snapshots_with_ami)) + "\n")
 print("Total snapshosts_with_vol " + str(len(snapshots_with_vol_info)) + "\n")
