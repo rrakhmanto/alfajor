@@ -61,7 +61,8 @@ for snapshot in all_snapshots:
     amiIdResultNumber = ""
     amiFound = False
   amiIdResult = re.search(r'.* for (.*) from .*', snapshot.description, re.M|re.I)
-  pprint(amiIdResult.__dict__)
+  if amiIdResult:
+      print amiIdResult.group(0)
 
 
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
