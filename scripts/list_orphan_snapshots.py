@@ -54,6 +54,7 @@ for snapshot in all_snapshots:
   snpashotDescription = snapshot.description
 
   #amiIdResult = reAmi.findall(snapshot.description)
+  #get the ami id name
   amiSearchResult = re.search(r'.* for (.*) from .*', snapshot.description, re.M|re.I)
   if amiSearchResult:
     amiIdResult = amiSearchResult.group(1)
@@ -61,6 +62,11 @@ for snapshot in all_snapshots:
     amiIdResult = ""
   print "amiIdResult", amiIdResult
 
+  #check if the ami ID exist
+  imageObject = ec2.get_conn().get_image(amiIdResult)
+  pprint(imageObject.__dict__)
+
+  
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
   # no AMI found
     volIdResult = reVol.findall(snapshot.description) #find associated volumes, ideally it only return one result
