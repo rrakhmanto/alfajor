@@ -64,6 +64,8 @@ for snapshot in all_snapshots:
   if amiIdResult:
     print amiIdResult.group(0)
     print amiIdResult.group(1)
+    pprint (vars(amiIdResult))
+
 
 
   if len(amiIdResult) != 1: #check if more than one associated AMI (impossible) or no associated at all.
