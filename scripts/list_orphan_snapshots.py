@@ -48,7 +48,7 @@ count_snapshots = len(all_snapshots)
 
 #check all the snapshots
 for snapshot in all_snapshots:
-  pprint(snapshot.__dict__)
+  #pprint(snapshot.__dict__)
   snapshotId = snapshot.id
   snpashotDescription = snapshot.description
 
