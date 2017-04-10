@@ -107,8 +107,7 @@ for snapshotInfo in snapshots_no_info:
     try:
       ec2.get_conn().delete_snapshot(snapshotInfo, True)
     except:
-      e = sys.exc_info()[0]
-      write_to_page( "<p>Error: %s</p>" % e )
+      print sys.exc_info()[0]
 
 
 print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
@@ -132,8 +131,7 @@ for snapshotInfo in snapshots_with_vol_info:
                     try:
                       ec2.get_conn().delete_snapshot(snapshot.id, True)
                     except:
-                      e = sys.exc_info()[0]
-                      write_to_page( "<p>Error: %s</p>" % e )
+                      print sys.exc_info()[0]
 
                 else:
                     print "snapshot {snapshotid} created on {snapshotdate} , to keep".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
