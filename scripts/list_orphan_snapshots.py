@@ -98,9 +98,22 @@ for snapshot in all_snapshots:
 
 print("Total amis " + str(len(images)) + "\n")
 print("Total snapshots " + str(count_snapshots) + "\n")
+
+#snapshot without associated volume will be removed.
 print("Total snapshots_no_info " + str(len(snapshots_no_info)) + "\n")
 delete_time = datetime.utcnow() - timedelta(days=30)
 for snapshotInfo in snapshots_no_info:
+    print "snapshot {snapshotid} has no associated volume , will delete".format(snapshotid=snapshotInfo)
+
+print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
+print("Total snapshosts_with_ami (ami exists) " + str(len(snapshots_with_ami)) + "\n")
+
+#snapshot with associated volume, only delete older than 30 days
+print("Total snapshosts_with_vol " + str(len(snapshots_with_vol_info)) + "\n")
+delete_time = datetime.utcnow() - timedelta(days=30)
+toDelete = 0
+toKeep = 0
+for snapshotInfo in snapshots_with_vol_info:
     for snapshot in all_snapshots:
         if snapshotInfo == snapshot.id:
             	start_time = datetime.strptime(
@@ -109,12 +122,13 @@ for snapshotInfo in snapshots_no_info:
             	)
                 if start_time < delete_time:
                     print "snapshot {snapshotid} created on {snapshotdate} , to delete".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
+                    toDelete = toDelete+1
                 else:
                     print "snapshot {snapshotid} created on {snapshotdate} , to keep".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
+                    toKeep = toKeep+1
+print("Total snapshosts_with_vol to delete" + str(toDelete) + "\n")
+print("Total snapshosts_with_vol to keep" + str(toKeep) + "\n")
 
-print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
-print("Total snapshosts_with_ami (ami exists) " + str(len(snapshots_with_ami)) + "\n")
-print("Total snapshosts_with_vol " + str(len(snapshots_with_vol_info)) + "\n")
 
 test_result = count_snapshots - (len(snapshots_no_info) + len(snapshots_no_ami) + len(snapshots_with_ami) + len(snapshots_with_vol_info))
 print "snapshots - snapshots not accounted for (should be 0) " + str(test_result)
