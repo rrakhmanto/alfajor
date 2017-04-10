@@ -104,6 +104,7 @@ print("Total snapshots_no_info " + str(len(snapshots_no_info)) + "\n")
 delete_time = datetime.utcnow() - timedelta(days=30)
 for snapshotInfo in snapshots_no_info:
     print "snapshot {snapshotid} has no associated volume , will delete".format(snapshotid=snapshotInfo)
+    ec2.get_conn().delete_snapshot(snapshotInfo, True)
 
 print("Total snapshosts_no_ami (but has ami ref) " + str(len(snapshots_no_ami)) + "\n")
 print("Total snapshosts_with_ami (ami exists) " + str(len(snapshots_with_ami)) + "\n")
@@ -123,6 +124,7 @@ for snapshotInfo in snapshots_with_vol_info:
                 if start_time < delete_time:
                     print "snapshot {snapshotid} created on {snapshotdate} , to delete".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
                     toDelete = toDelete+1
+                    ec2.get_conn().delete_snapshot(snapshot.id, True)
                 else:
                     print "snapshot {snapshotid} created on {snapshotdate} , to keep".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
                     toKeep = toKeep+1
