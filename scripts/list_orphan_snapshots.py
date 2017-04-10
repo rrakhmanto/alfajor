@@ -105,7 +105,7 @@ delete_time = datetime.utcnow() - timedelta(days=30)
 for snapshotInfo in snapshots_no_info:
     print "snapshot {snapshotid} has no associated volume , will delete".format(snapshotid=snapshotInfo)
     try:
-      ec2.get_conn().delete_snapshot(snapshotInfo, True)
+      ec2.get_conn().delete_snapshot(snapshotInfo, False)
     except:
       print sys.exc_info()[0]
 
@@ -129,7 +129,7 @@ for snapshotInfo in snapshots_with_vol_info:
                     print "snapshot {snapshotid} created on {snapshotdate} , to delete".format(snapshotid=snapshot.id, snapshotdate=snapshot.start_time)
                     toDelete = toDelete+1
                     try:
-                      ec2.get_conn().delete_snapshot(snapshot.id, True)
+                      ec2.get_conn().delete_snapshot(snapshot.id, False)
                     except:
                       print sys.exc_info()[0]
 
